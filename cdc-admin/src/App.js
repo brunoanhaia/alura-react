@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './css/pure-min.css';
 import './css/side-menu.css';
 import $ from 'jquery';
-
+import InputCustomizado from './components/InputCustomizado'
+import InputTypeSubmit from './components/inputTypeSubmit';
 class App extends Component {
 
   constructor() {
@@ -86,22 +87,11 @@ class App extends Component {
                   <div className="content" id="content">
                     <div className="pure-form pure-form-aligned">
                       <form className="pure-form pure-form-aligned" onSubmit={this.enviaForm} method="POST">
-                        <div className="pure-control-group">
-                          <label htmlFor="nome">Nome</label> 
-                          <input id="nome" type="text" name="nome" value={this.state.nome} onChange={this.setNome}/>                  
-                        </div>
-                        <div className="pure-control-group">
-                          <label htmlFor="email">Email</label> 
-                          <input id="email" type="email" name="email" value={this.state.email} onChange={this.setMail}/>                  
-                        </div>
-                        <div className="pure-control-group">
-                          <label htmlFor="senha">Senha</label> 
-                          <input id="senha" type="password" name="senha"  value={this.state.senha} onChange={this.setSenha}/>                                      
-                        </div>
-                        <div className="pure-control-group">                                  
-                          <label></label> 
-                          <button type="submit" className="pure-button pure-button-primary">Gravar</button>                                    
-                        </div>
+                        <InputCustomizado label="Nome" id="nome" type="text" name="nome" value={this.state.nome} onChange={this.setNome}/>
+                        <InputCustomizado label="Email" id="email" type="email" name="email" value={this.state.email} onChange={this.setMail}/>
+                        <InputCustomizado label="Senha" id="senha" type="password" name="Senha" value={this.state.Senha} onChange={this.setSenha}/>
+                        <InputTypeSubmit label="Gravar" type="submit"/>
+                        
                       </form>             
 
                     </div>  
