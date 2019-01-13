@@ -26,10 +26,14 @@ export class FormularioAutor extends Component{
         data: JSON.stringify({nome: this.state.nome, email: this.state.email, senha: this.state.senha}),
         success: function(novaListagem){
             PubSub.publish('atualiza-lista-autores',novaListagem);
-        },
+            this.setState({nome: '', email: '', senha: ''})
+        }.bind(this),
         error: function(resposta){
             //Tratar erros aqui
             new TratadorErros().publicaErros(resposta.responseJSON);
+        },
+        beforeSend: function(){
+            PubSub.publish("limpa-erros",{})
         }
         });
     }
@@ -49,7 +53,7 @@ export class FormularioAutor extends Component{
                 <form className="pure-form pure-form-aligned" onSubmit={this.enviaForm} method="POST">
                 <InputCustomizado label="Nome" id="nome" type="text" name="nome" value={this.state.nome} onChange={this.setNome}/>
                 <InputCustomizado label="Email" id="email" type="email" name="email" value={this.state.email} onChange={this.setMail}/>
-                <InputCustomizado label="Senha" id="senha" type="password" name="Senha" value={this.state.Senha} onChange={this.setSenha}/>
+                <InputCustomizado label="Senha" id="senha" type="password" name="senha" value={this.state.Senha} onChange={this.setSenha}/>
                 <InputTypeSubmit label="Gravar" type="submit"/>
                 </form>             
             </div>  
@@ -107,7 +111,7 @@ export default class AutorBox extends Component{
         );
         PubSub.subscribe('atualiza-lista-autores',(topico,novaListagem)=>{
             this.setState({lista:novaListagem});
-        });        
+        }); 
     }
 
     
